@@ -1,0 +1,41 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const regattas = (await getCollection('regattas', ({ data }) => data.status !== 'cancelled'))
+  .sort((a, b) => a.data.startDate.valueOf() - b.data.startDate.valueOf());
+
+const nextOffshore = regattas.find(r => r.data.track === 'offshore');
+const nextInshore = regattas.find(r => r.data.track === 'inshore');
+---
+<Base title="Regattas">
+  <h1 class="text-2xl font-bold mb-6">Regattas</h1>
+  <div class="grid sm:grid-cols-2 gap-6 mb-8">
+    <div class="border border-gray-200 rounded p-5">
+      <h2 class="font-semibold text-lg mb-3">Offshore</h2>
+      {nextOffshore ? (
+        <div>
+          <p class="font-medium">{nextOffshore.data.name}</p>
+          <p class="text-sm text-gray-500">{nextOffshore.data.startDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })} · {nextOffshore.data.location}</p>
+          <p class="text-sm text-gray-500">{nextOffshore.data.crewing} · {nextOffshore.data.status}</p>
+        </div>
+      ) : (
+        <p class="text-gray-500 text-sm">No upcoming events.</p>
+      )}
+      <a href="/regattas/offshore/" class="text-sm underline mt-3 inline-block">Full offshore schedule →</a>
+    </div>
+    <div class="border border-gray-200 rounded p-5">
+      <h2 class="font-semibold text-lg mb-3">Inshore</h2>
+      {nextInshore ? (
+        <div>
+          <p class="font-medium">{nextInshore.data.name}</p>
+          <p class="text-sm text-gray-500">{nextInshore.data.startDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })} · {nextInshore.data.location}</p>
+          <p class="text-sm text-gray-500">{nextInshore.data.crewing} · {nextInshore.data.status}</p>
+        </div>
+      ) : (
+        <p class="text-gray-500 text-sm">No upcoming events.</p>
+      )}
+      <a href="/regattas/inshore/" class="text-sm underline mt-3 inline-block">Full inshore schedule →</a>
+    </div>
+  </div>
+</Base>

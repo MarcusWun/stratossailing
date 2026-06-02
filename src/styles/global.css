@@ -1,0 +1,14 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@font-face {
+  font-family: 'Neuropol';
+  src: url('/fonts/NeuropolX.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font-neuropol {
+  font-family: 'Neuropol', sans-serif;
+}

@@ -1,0 +1,190 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('posts', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 5);
+
+const regattas = (await getCollection('regattas', ({ data }) => data.status !== 'cancelled'))
+  .sort((a, b) => a.data.startDate.valueOf() - b.data.startDate.valueOf());
+
+const nextOffshore = regattas.find(r => r.data.track === 'offshore');
+const nextInshore = regattas.find(r => r.data.track === 'inshore');
+---
+<Base title="Stratos" fullWidth>
+
+  <!-- Hero: full-viewport crossfading background images -->
+  <section class="hero">
+    <div class="slide slide-1" aria-hidden="true"></div>
+    <div class="slide slide-2" aria-hidden="true"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1 class="font-neuropol">Stratos</h1>
+      <p>Sun Fast 3300 · Cedar Point Yacht Club</p>
+      <a href="/blog/" class="hero-cta">Race Reports</a>
+    </div>
+    <a href="#content" class="scroll-hint" aria-label="Scroll down">&#8595;</a>
+  </section>
+
+  <!-- Below-fold content -->
+  <div id="content" class="max-w-5xl mx-auto w-full px-4 py-12">
+
+    {(nextOffshore || nextInshore) && (
+      <section class="mb-12">
+        <h2 class="text-xs uppercase tracking-widest text-gray-400 mb-4">Upcoming</h2>
+        <div class="grid sm:grid-cols-2 gap-4">
+          {nextOffshore && (
+            <div class="border border-gray-200 rounded p-5">
+              <p class="text-xs uppercase tracking-wide text-gray-400 mb-1">Offshore</p>
+              <p class="font-semibold text-lg">{nextOffshore.data.name}</p>
+              <p class="text-sm text-gray-500 mt-1">
+                {nextOffshore.data.startDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                {' · '}{nextOffshore.data.location}
+              </p>
+              <a href="/regattas/offshore/" class="text-sm underline mt-3 inline-block">Full schedule →</a>
+            </div>
+          )}
+          {nextInshore && (
+            <div class="border border-gray-200 rounded p-5">
+              <p class="text-xs uppercase tracking-wide text-gray-400 mb-1">Inshore</p>
+              <p class="font-semibold text-lg">{nextInshore.data.name}</p>
+              <p class="text-sm text-gray-500 mt-1">
+                {nextInshore.data.startDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                {' · '}{nextInshore.data.location}
+              </p>
+              <a href="/regattas/inshore/" class="text-sm underline mt-3 inline-block">Full schedule →</a>
+            </div>
+          )}
+        </div>
+      </section>
+    )}
+
+    <section>
+      <h2 class="text-xs uppercase tracking-widest text-gray-400 mb-4">Recent Posts</h2>
+      {posts.length === 0 && <p class="text-gray-500">No posts yet.</p>}
+      <ul class="space-y-5">
+        {posts.map(post => (
+          <li class="border-b border-gray-100 pb-5">
+            <a href={`/blog/${post.id}/`} class="text-lg font-medium hover:underline">{post.data.title}</a>
+            <p class="text-sm text-gray-500 mt-1">
+              {post.data.date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+              {' · '}{post.data.location} · {post.data.crewing}
+            </p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+  </div>
+
+</Base>
+
+<style>
+  /* ── Hero container ── */
+  .hero {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 49px); /* subtract header height */
+    min-height: 480px;
+    overflow: hidden;
+  }
+
+  /* ── Background image layers ── */
+  .slide {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .slide-1 {
+    background-image: url('/images/Stratos_1.jpg');
+    animation: crossfade 20s ease-in-out infinite;
+  }
+
+  .slide-2 {
+    background-image: url('/images/Stratos_2.jpg');
+    animation: crossfade 20s ease-in-out infinite;
+    animation-delay: -10s;
+  }
+
+  @keyframes crossfade {
+    0%, 45%  { opacity: 1; }
+    50%, 95% { opacity: 0; }
+    100%     { opacity: 1; }
+  }
+
+  /* ── Dark overlay so text stays legible ── */
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: 1;
+  }
+
+  /* ── Centered text ── */
+  .hero-content {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 1rem;
+  }
+
+  .hero-content h1 {
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-content p {
+    font-size: clamp(0.875rem, 2vw, 1.125rem);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.85;
+    margin-bottom: 2rem;
+  }
+
+  .hero-cta {
+    display: inline-block;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    color: white;
+    padding: 0.625rem 1.5rem;
+    font-size: 0.8125rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .hero-cta:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: white;
+  }
+
+  /* ── Scroll hint arrow ── */
+  .scroll-hint {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.5rem;
+    text-decoration: none;
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50%       { transform: translateX(-50%) translateY(6px); }
+  }
+</style>

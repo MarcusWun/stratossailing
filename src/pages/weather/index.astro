@@ -1,0 +1,44 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="Weather" description="Marine weather forecast tools for offshore and inshore racing on the Northeast Coast.">
+  <h1 class="text-2xl font-bold mb-6">Weather</h1>
+
+  <section class="mb-8">
+    <h2 class="text-lg font-semibold mb-3">Forecast — Long Island Sound & Offshore NE</h2>
+    <div class="aspect-video w-full">
+      <iframe
+        src="https://embed.windy.com/embed2.html?lat=41.2&lon=-72.0&detailLat=41.2&detailLon=-72.0&zoom=7&level=surface&overlay=wind&product=ecmwf&menu=&message=&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&metricWind=kn&metricTemp=%C2%B0F&radarRange=-1"
+        width="100%"
+        height="100%"
+        frameborder="0"
+        title="Windy forecast"
+        class="w-full h-full rounded"
+      ></iframe>
+    </div>
+    <p class="text-xs text-gray-400 mt-1">Embed via Windy.com — ECMWF model, knots</p>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-lg font-semibold mb-3">National Weather Service</h2>
+    <ul class="space-y-2 text-sm">
+      <li><a href="https://marine.weather.gov/MapClick.php?zoneid=anz338#" class="underline" target="_blank" rel="noopener">Marine Forecast New York</a></li>
+      <li><a href="https://marine.weather.gov/MapClick.php?zoneid=anz335#" class="underline" target="_blank" rel="noopener">Marine Forecast Western LIS</a></li>
+      <li><a href="https://www.wpc.ncep.noaa.gov/basicwx/basicwx_ndfd.php" class="underline" target="_blank" rel="noopener">WPC Short Range</a></li>
+    </ul>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-lg font-semibold mb-3">NOAA Current Predictions</h2>
+    <ul class="space-y-2 text-sm">
+      <li><a href="https://tidesandcurrents.noaa.gov/noaacurrents/predictions.html?id=ACT3421_1" class="underline" target="_blank" rel="noopener">Roosevelt Is., west of, off 63rd Street</a></li>
+    </ul>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-lg font-semibold mb-3">Other Weather Resources</h2>
+    <ul class="space-y-2 text-sm">
+      <li><a href="https://www.weatherobs.com/" class="underline" target="_blank" rel="noopener">Current Weather Observations</a></li>
+    </ul>
+  </section>
+</Base>

@@ -1,0 +1,47 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  fullWidth?: boolean;
+}
+const { title, description = 'Racing blog for Stratos, a Sun Fast 3300 sailing out of Cedar Point Yacht Club.', ogImage, fullWidth = false } = Astro.props;
+const siteTitle = title === 'Stratos' ? 'Stratos' : `${title} — Stratos`;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{siteTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    <meta property="og:title" content={siteTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body class="min-h-screen bg-white text-gray-900 flex flex-col">
+    <header class="border-b border-gray-200 px-4 py-3">
+      <nav class="max-w-5xl mx-auto flex flex-wrap items-center gap-x-6 gap-y-2">
+        <a href="/" class="font-neuropol text-lg tracking-tight mr-4">⛵ Stratos</a>
+        <a href="/blog/" class="text-sm hover:underline">Blog</a>
+        <a href="/regattas/" class="text-sm hover:underline">Regattas</a>
+        <a href="/documents/" class="text-sm hover:underline">Documents</a>
+        <a href="/weather/" class="text-sm hover:underline">Weather</a>
+        <a href="/gallery/" class="text-sm hover:underline">Gallery</a>
+        <a href="/about/" class="text-sm hover:underline">About</a>
+      </nav>
+    </header>
+    <main class={fullWidth ? 'flex-1 w-full' : 'flex-1 max-w-5xl mx-auto w-full px-4 py-8'}>
+      <slot />
+    </main>
+    <footer class="border-t border-gray-200 px-4 py-4 text-center text-sm text-gray-500">
+      stratossailing.com — Marcus Wunderlich / <em class="font-neuropol not-italic">Stratos</em>, Sun Fast 3300 #15833
+    </footer>
+  </body>
+</html>
