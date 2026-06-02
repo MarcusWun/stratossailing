@@ -1,5 +1,5 @@
-# build output
-dist/
+# build output — dist/ committed for Hostinger static deploy
+# dist/
 # generated types
 .astro/
 
