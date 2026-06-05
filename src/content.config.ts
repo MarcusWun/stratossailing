@@ -1,7 +1,7 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
-const trackEnum = z.enum(['offshore', 'inshore']);
+const trackEnum = z.enum(['offshore', 'coastal', 'inshore']);
 const crewingEnum = z.enum(['singlehanded', 'doublehanded', 'fully crewed']);
 
 const posts = defineCollection({

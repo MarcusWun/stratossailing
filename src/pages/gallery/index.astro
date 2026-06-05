@@ -1,7 +1,204 @@
 ---
 import Base from '../../layouts/Base.astro';
+
+const album = {
+  title: 'Arriving in Newport',
+  description: 'Stratos shipped from the UK aboard a Sevenstar cargo vessel, arriving in Newport, RI. After the crane lift and splash, the first stopover was Conanicut Marina in Jamestown for a full systems check before heading home to Liberty Landing in Jersey City.',
+  slides: [
+    { src: '/images/arriving-in-newport/001.jpg', caption: 'Stratos lifted from the Sevenstar deck — Newport, RI' },
+    { src: '/images/arriving-in-newport/002.jpg', caption: 'Sevenstar crew guides Stratos off the ship' },
+    { src: '/images/arriving-in-newport/003.jpg', caption: 'Swinging clear of the cargo ship' },
+    { src: '/images/arriving-in-newport/004.jpg', caption: 'Nearly free — a few feet from the water' },
+    { src: '/images/arriving-in-newport/005.jpg', caption: 'First sail in US waters — Narragansett Bay' },
+    { src: '/images/arriving-in-newport/006.jpg', caption: 'Conanicut Marina, Jamestown, RI — systems check before departing' },
+    { src: '/images/arriving-in-newport/007.jpg', caption: 'Bound for home on Long Island Sound' },
+    { src: '/images/arriving-in-newport/008.jpg', caption: 'Overnight at Harbor Point Marina, Stamford, CT' },
+    { src: '/images/arriving-in-newport/009.jpg', caption: 'Night transit on the East River, Manhattan' },
+  ],
+};
 ---
 <Base title="Gallery">
-  <h1 class="text-2xl font-bold mb-4">Gallery</h1>
-  <p class="text-gray-500">Photos and videos — coming soon.</p>
+  <h1 class="text-2xl font-bold mb-2">Gallery</h1>
+
+  <section class="mb-12">
+    <h2 class="text-lg font-semibold mb-1">{album.title}</h2>
+    <p class="text-sm text-gray-500 mb-6 max-w-2xl">{album.description}</p>
+
+    <div class="carousel" id="carousel" aria-label={album.title}>
+      <div class="carousel-track" id="carousel-track">
+        {album.slides.map((slide, i) => (
+          <div class="carousel-slide" data-index={i} role="img" aria-label={slide.caption}>
+            <img src={slide.src} alt={slide.caption} loading={i === 0 ? 'eager' : 'lazy'} />
+          </div>
+        ))}
+      </div>
+
+      <button class="carousel-btn carousel-prev" id="carousel-prev" aria-label="Previous photo">&#8592;</button>
+      <button class="carousel-btn carousel-next" id="carousel-next" aria-label="Next photo">&#8594;</button>
+
+      <div class="carousel-caption" id="carousel-caption" aria-live="polite">
+        {album.slides[0].caption}
+      </div>
+
+      <div class="carousel-dots" id="carousel-dots" role="tablist">
+        {album.slides.map((_, i) => (
+          <button
+            class={`carousel-dot${i === 0 ? ' active' : ''}`}
+            data-index={i}
+            aria-label={`Photo ${i + 1}`}
+            role="tab"
+            aria-selected={i === 0 ? 'true' : 'false'}
+          ></button>
+        ))}
+      </div>
+
+      <div class="carousel-counter" id="carousel-counter" aria-hidden="true">
+        1 / {album.slides.length}
+      </div>
+    </div>
+  </section>
 </Base>
+
+<style>
+  .carousel {
+    position: relative;
+    width: 100%;
+    max-width: 860px;
+    background: #000;
+    border-radius: 4px;
+    overflow: hidden;
+    user-select: none;
+  }
+
+  .carousel-track {
+    display: flex;
+    transition: transform 0.4s ease;
+    will-change: transform;
+  }
+
+  .carousel-slide {
+    flex: 0 0 100%;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #111;
+  }
+
+  .carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.45);
+    color: white;
+    border: none;
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+    z-index: 10;
+    transition: background 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+  }
+
+  .carousel-btn:hover { background: rgba(0, 0, 0, 0.75); }
+  .carousel-prev { left: 0.5rem; }
+  .carousel-next { right: 0.5rem; }
+
+  .carousel-caption {
+    position: absolute;
+    bottom: 2.25rem;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.55);
+    color: white;
+    font-size: 0.8125rem;
+    text-align: center;
+    padding: 0.5rem 3rem;
+    line-height: 1.4;
+  }
+
+  .carousel-counter {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.75rem;
+    color: rgba(255,255,255,0.7);
+    font-size: 0.75rem;
+    z-index: 10;
+  }
+
+  .carousel-dots {
+    position: absolute;
+    bottom: 0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.375rem;
+    z-index: 10;
+  }
+
+  .carousel-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.4);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.2s;
+  }
+
+  .carousel-dot.active { background: white; }
+</style>
+
+<script>
+  const track = document.getElementById('carousel-track') as HTMLElement;
+  const caption = document.getElementById('carousel-caption') as HTMLElement;
+  const counter = document.getElementById('carousel-counter') as HTMLElement;
+  const dots = document.querySelectorAll<HTMLElement>('.carousel-dot');
+  const total = dots.length;
+  let current = 0;
+
+  const captions = Array.from(
+    document.querySelectorAll<HTMLElement>('.carousel-slide')
+  ).map(s => s.getAttribute('aria-label') ?? '');
+
+  function goTo(index: number) {
+    current = (index + total) % total;
+    track.style.transform = `translateX(-${current * 100}%)`;
+    caption.textContent = captions[current];
+    counter.textContent = `${current + 1} / ${total}`;
+    dots.forEach((d, i) => {
+      d.classList.toggle('active', i === current);
+      d.setAttribute('aria-selected', String(i === current));
+    });
+  }
+
+  document.getElementById('carousel-prev')!.addEventListener('click', () => goTo(current - 1));
+  document.getElementById('carousel-next')!.addEventListener('click', () => goTo(current + 1));
+  dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+
+  document.getElementById('carousel')!.addEventListener('keydown', (e: KeyboardEvent) => {
+    if (e.key === 'ArrowLeft') goTo(current - 1);
+    if (e.key === 'ArrowRight') goTo(current + 1);
+  });
+
+  let touchStartX = 0;
+  const carousel = document.getElementById('carousel')!;
+  carousel.addEventListener('touchstart', (e: TouchEvent) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  carousel.addEventListener('touchend', (e: TouchEvent) => {
+    const delta = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(delta) > 40) goTo(delta > 0 ? current + 1 : current - 1);
+  }, { passive: true });
+</script>

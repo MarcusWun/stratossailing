@@ -2,40 +2,115 @@
 import Base from '../../layouts/Base.astro';
 import { getCollection } from 'astro:content';
 
-const regattas = (await getCollection('regattas', ({ data }) => data.status !== 'cancelled'))
+const all = (await getCollection('regattas', ({ data }) => data.status !== 'cancelled'))
   .sort((a, b) => a.data.startDate.valueOf() - b.data.startDate.valueOf());
 
-const nextOffshore = regattas.find(r => r.data.track === 'offshore');
-const nextInshore = regattas.find(r => r.data.track === 'inshore');
+const BUILD_DATE = new Date().toISOString().split('T')[0]; // YYYY-MM-DD at build time
+
+const trackLabel: Record<string, string> = {
+  offshore: 'Offshore',
+  coastal:  'Coastal',
+  inshore:  'Inshore',
+};
+
+const trackColor: Record<string, string> = {
+  offshore: 'bg-blue-100 text-blue-800',
+  coastal:  'bg-teal-100 text-teal-800',
+  inshore:  'bg-purple-100 text-purple-800',
+};
+
+// Split at midnight today (build date)
+const today = new Date(BUILD_DATE);
+today.setHours(0, 0, 0, 0);
+
+const upcoming = all.filter(r => r.data.startDate >= today);
+const past     = all.filter(r => r.data.startDate < today)
+                    .sort((a, b) => b.data.startDate.valueOf() - a.data.startDate.valueOf());
 ---
 <Base title="Regattas">
-  <h1 class="text-2xl font-bold mb-6">Regattas</h1>
-  <div class="grid sm:grid-cols-2 gap-6 mb-8">
-    <div class="border border-gray-200 rounded p-5">
-      <h2 class="font-semibold text-lg mb-3">Offshore</h2>
-      {nextOffshore ? (
-        <div>
-          <p class="font-medium">{nextOffshore.data.name}</p>
-          <p class="text-sm text-gray-500">{nextOffshore.data.startDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })} · {nextOffshore.data.location}</p>
-          <p class="text-sm text-gray-500">{nextOffshore.data.crewing} · {nextOffshore.data.status}</p>
-        </div>
-      ) : (
-        <p class="text-gray-500 text-sm">No upcoming events.</p>
-      )}
-      <a href="/regattas/offshore/" class="text-sm underline mt-3 inline-block">Full offshore schedule →</a>
-    </div>
-    <div class="border border-gray-200 rounded p-5">
-      <h2 class="font-semibold text-lg mb-3">Inshore</h2>
-      {nextInshore ? (
-        <div>
-          <p class="font-medium">{nextInshore.data.name}</p>
-          <p class="text-sm text-gray-500">{nextInshore.data.startDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })} · {nextInshore.data.location}</p>
-          <p class="text-sm text-gray-500">{nextInshore.data.crewing} · {nextInshore.data.status}</p>
-        </div>
-      ) : (
-        <p class="text-gray-500 text-sm">No upcoming events.</p>
-      )}
-      <a href="/regattas/inshore/" class="text-sm underline mt-3 inline-block">Full inshore schedule →</a>
-    </div>
-  </div>
+  <h1 class="text-2xl font-bold mb-8">Regattas</h1>
+
+  <!-- Upcoming -->
+  <section class="mb-12">
+    <h2 class="text-xs uppercase tracking-widest text-gray-400 mb-4">Upcoming</h2>
+    {upcoming.length === 0 && <p class="text-gray-500 text-sm">No upcoming events.</p>}
+    <ul class="space-y-3">
+      {upcoming.map(r => (
+        <li class="border border-gray-200 rounded p-4">
+          <div class="flex flex-wrap items-start justify-between gap-2">
+            <div class="flex-1 min-w-0">
+              <div class="flex flex-wrap items-center gap-2 mb-1">
+                <span class={`text-xs font-medium px-2 py-0.5 rounded-full ${trackColor[r.data.track]}`}>
+                  {trackLabel[r.data.track]}
+                </span>
+                <span class="text-xs text-gray-400 capitalize">{r.data.crewing}</span>
+              </div>
+              {r.data.url
+                ? <a href={r.data.url} class="font-semibold hover:underline" target="_blank" rel="noopener">{r.data.name}</a>
+                : <span class="font-semibold">{r.data.name}</span>
+              }
+              <p class="text-sm text-gray-500 mt-0.5">
+                {r.data.startDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                {r.data.endDate && ` – ${r.data.endDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}`}
+                {' · '}{r.data.location}
+              </p>
+            </div>
+            <div class="text-right shrink-0">
+              <span
+                class="text-sm font-medium text-gray-600 days-counter"
+                data-start={r.data.startDate.toISOString().split('T')[0]}
+              >—</span>
+            </div>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- Past -->
+  <section>
+    <h2 class="text-xs uppercase tracking-widest text-gray-400 mb-4">Past</h2>
+    {past.length === 0 && <p class="text-gray-500 text-sm">No past events yet.</p>}
+    <ul class="space-y-3">
+      {past.map(r => (
+        <li class="border border-gray-200 rounded p-4 opacity-70">
+          <div class="flex flex-wrap items-start justify-between gap-2">
+            <div class="flex-1 min-w-0">
+              <div class="flex flex-wrap items-center gap-2 mb-1">
+                <span class={`text-xs font-medium px-2 py-0.5 rounded-full ${trackColor[r.data.track]}`}>
+                  {trackLabel[r.data.track]}
+                </span>
+                <span class="text-xs text-gray-400 capitalize">{r.data.crewing}</span>
+              </div>
+              {r.data.url
+                ? <a href={r.data.url} class="font-semibold hover:underline" target="_blank" rel="noopener">{r.data.name}</a>
+                : <span class="font-semibold">{r.data.name}</span>
+              }
+              <p class="text-sm text-gray-500 mt-0.5">
+                {r.data.startDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                {r.data.endDate && ` – ${r.data.endDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}`}
+                {' · '}{r.data.location}
+              </p>
+            </div>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </section>
 </Base>
+
+<script>
+  // Compute days-until live in the browser so it stays fresh without rebuilding
+  document.querySelectorAll<HTMLElement>('.days-counter').forEach(el => {
+    const start = el.dataset.start;
+    if (!start) return;
+    const startDate = new Date(start + 'T00:00:00');
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const days = Math.round((startDate.valueOf() - today.valueOf()) / 86400000);
+    if (days === 0)       el.textContent = 'Today';
+    else if (days === 1)  el.textContent = '1 day away';
+    else if (days > 0)    el.textContent = `${days} days away`;
+    else                  el.textContent = '';
+  });
+</script>
