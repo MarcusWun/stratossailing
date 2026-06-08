@@ -4,7 +4,7 @@ track: "coastal"
 startDate: 2026-07-24
 endDate: 2026-07-25
 location: "Newport, RI"
-crewing: "doublehanded"
+crewing: "singlehanded"
 url: "https://newportyachtclub.theclubspot.com/regatta/CEANjnZFxb"
 status: "confirmed"
 ---

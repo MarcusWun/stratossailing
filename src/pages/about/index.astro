@@ -27,6 +27,29 @@ import Base from '../../layouts/Base.astro';
     <p>North Sails and Evolution Sails inventory includes a J0 and asymmetrical spinnakers: A1.5, A2, A3, A4.</p>
 
     <h2>Owner / Driver</h2>
-    <p>Marcus Wunderlich — Cedar Point Yacht Club, 15 years racing.</p>
+  </div>
+
+  <!-- Owner section: photo + bio side by side, outside prose to control layout -->
+  <div class="not-prose mt-4 flex flex-col sm:flex-row gap-8 items-start max-w-none">
+    <div class="shrink-0">
+      <img
+        src="/images/marcus.jpg"
+        alt="Marcus Wunderlich"
+        class="w-56 rounded object-cover"
+      />
+    </div>
+    <div class="prose prose-gray">
+      <p>
+        Marcus Wunderlich has been racing sailboats for over 15 years across a wide range of one-design
+        and offshore classes. His background includes competitive campaigns on the J/105, J/70, VX One,
+        Melges 15, and ILCA 7, with participation in numerous local, regional, and national regattas
+        throughout his career.
+      </p>
+      <p>
+        <em>Stratos</em> represents his move into offshore and shorthanded distance racing. Based at
+        Cedar Point Yacht Club in Westport, CT, Marcus campaigns the Sun Fast 3300 primarily
+        single- and double-handed on the US Northeast Coast.
+      </p>
+    </div>
   </div>
 </Base>

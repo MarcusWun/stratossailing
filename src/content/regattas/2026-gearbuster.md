@@ -1,6 +1,6 @@
 ---
 name: "The Gearbuster"
-track: "coastal"
+track: "inshore"
 startDate: 2026-10-10
 endDate: 2026-10-11
 location: "Indian Harbor YC, CT"

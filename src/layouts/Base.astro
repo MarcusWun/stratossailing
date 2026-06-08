@@ -28,7 +28,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <body class="min-h-screen bg-white text-gray-900 flex flex-col">
     <header class="border-b border-gray-200 px-4 py-3">
       <nav class="max-w-5xl mx-auto flex flex-wrap items-center gap-x-6 gap-y-2">
-        <a href="/" class="font-neuropol text-lg tracking-tight mr-4">⛵ Stratos</a>
+        <a href="/" class="site-logo mr-6 no-underline" aria-label="Stratos — Home">
+          <span class="font-neuropol text-xl leading-none block">Stratos</span>
+          <span class="block h-px bg-black my-[3px]"></span>
+          <span class="block text-[0.6rem] uppercase tracking-[0.18em] font-normal text-center">Racing</span>
+        </a>
         <a href="/blog/" class="text-sm hover:underline">Blog</a>
         <a href="/regattas/" class="text-sm hover:underline">Regattas</a>
         <a href="/documents/" class="text-sm hover:underline">Documents</a>
