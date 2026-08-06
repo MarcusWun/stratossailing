@@ -1,0 +1,22 @@
+---
+import Base from '../../../layouts/Base.astro';
+import Carousel from '../../../components/Carousel.astro';
+
+const slides = [
+  { src: '/images/arriving-in-newport/001.jpg', caption: 'Stratos lifted from the Sevenstar deck — Newport, RI' },
+  { src: '/images/arriving-in-newport/002.jpg', caption: 'Sevenstar crew guides Stratos off the ship' },
+  { src: '/images/arriving-in-newport/003.jpg', caption: 'Swinging clear of the cargo ship' },
+  { src: '/images/arriving-in-newport/004.jpg', caption: 'Nearly free — a few feet from the water' },
+  { src: '/images/arriving-in-newport/005.jpg', caption: 'First sail in US waters — Narragansett Bay' },
+  { src: '/images/arriving-in-newport/006.jpg', caption: 'Conanicut Marina, Jamestown, RI — systems check before departing' },
+  { src: '/images/arriving-in-newport/007.jpg', caption: 'Bound for home on Long Island Sound' },
+  { src: '/images/arriving-in-newport/008.jpg', caption: 'Overnight at Harbor Point Marina, Stamford, CT' },
+  { src: '/images/arriving-in-newport/009.jpg', caption: 'Night transit on the East River, Manhattan' },
+];
+---
+<Base title="Arriving in Newport — Gallery">
+  <a href="/gallery/" class="text-sm text-gray-400 hover:underline mb-4 inline-block">&larr; Gallery</a>
+  <h1 class="text-2xl font-bold mb-2">Arriving in Newport</h1>
+  <p class="text-sm text-gray-500 mb-6 max-w-2xl">Stratos shipped from the UK aboard a Sevenstar cargo vessel, arriving in Newport, RI. After the crane lift and splash, the first stopover was Conanicut Marina in Jamestown for a full systems check before heading home to Liberty Landing in Jersey City.</p>
+  <Carousel id="arriving" slides={slides} />
+</Base>

@@ -1,0 +1,23 @@
+---
+import Base from '../../../layouts/Base.astro';
+import Carousel from '../../../components/Carousel.astro';
+
+const slides = [
+  { src: '/images/offshore-160/001.jpg', caption: 'Stratos under full main — USA 15833 on the sail, Newport Harbor' },
+  { src: '/images/offshore-160/002.jpg', caption: 'Close-up from the quarter — Stratos powering upwind' },
+  { src: '/images/offshore-160/003.jpg', caption: 'Marcus at the helm, pre-start — race documents on the companionway' },
+  { src: '/images/offshore-160/004.jpg', caption: 'Final prep on the stern — fleet stacking up behind' },
+  { src: '/images/offshore-160/005.jpg', caption: 'Three-way battle off Newport — Stratos, Seafal, and fleet' },
+  { src: '/images/offshore-160/006.jpg', caption: 'Jockeying for position — tight pack near the start' },
+  { src: '/images/offshore-160/007.jpg', caption: 'Stratos and competitor bow-to-bow upwind' },
+  { src: '/images/offshore-160/008.jpg', caption: 'Fleet spread across Newport Harbor — three boats abreast' },
+  { src: '/images/offshore-160/009.jpg', caption: 'Stratos in the thick of it — close racing in the harbor' },
+  { src: '/images/offshore-160/010.jpg', caption: 'Stratos passing Fort Adams — leaving Newport Harbor' },
+];
+---
+<Base title="Offshore 160 — Gallery">
+  <a href="/gallery/" class="text-sm text-gray-400 hover:underline mb-4 inline-block">&larr; Gallery</a>
+  <h1 class="text-2xl font-bold mb-2">Offshore 160</h1>
+  <p class="text-sm text-gray-500 mb-6 max-w-2xl">The <em>Offshore 160</em> is a biennial, singlehanded and short-handed overnight sailing race hosted by the Newport Yacht Club in Rhode Island. It covers roughly 160 nautical miles in Rhode Island Sound and Block Island Sound, acting as a key qualifier for the grueling Bermuda One-Two race.</p>
+  <Carousel id="offshore160" slides={slides} />
+</Base>

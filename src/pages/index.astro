@@ -18,6 +18,8 @@ const nextInshore = regattas.find(r => r.data.track === 'inshore');
   <section class="hero">
     <div class="slide slide-1" aria-hidden="true"></div>
     <div class="slide slide-2" aria-hidden="true"></div>
+    <div class="slide slide-3" aria-hidden="true"></div>
+    <div class="slide slide-4" aria-hidden="true"></div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <h1 class="font-neuropol">Stratos</h1>
@@ -100,18 +102,30 @@ const nextInshore = regattas.find(r => r.data.track === 'inshore');
 
   .slide-1 {
     background-image: url('/images/Stratos_1.jpg');
-    animation: crossfade 20s ease-in-out infinite;
+    animation: crossfade4 40s ease-in-out infinite;
   }
 
   .slide-2 {
     background-image: url('/images/Stratos_2.jpg');
-    animation: crossfade 20s ease-in-out infinite;
+    animation: crossfade4 40s ease-in-out infinite;
+    animation-delay: -30s;
+  }
+
+  .slide-3 {
+    background-image: url('/images/Stratos_3.jpg');
+    animation: crossfade4 40s ease-in-out infinite;
+    animation-delay: -20s;
+  }
+
+  .slide-4 {
+    background-image: url('/images/Stratos_4.jpg');
+    animation: crossfade4 40s ease-in-out infinite;
     animation-delay: -10s;
   }
 
-  @keyframes crossfade {
-    0%, 45%  { opacity: 1; }
-    50%, 95% { opacity: 0; }
+  @keyframes crossfade4 {
+    0%, 20%  { opacity: 1; }
+    25%, 95% { opacity: 0; }
     100%     { opacity: 1; }
   }
 

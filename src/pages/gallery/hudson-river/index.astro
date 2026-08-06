@@ -1,0 +1,22 @@
+---
+import Base from '../../../layouts/Base.astro';
+import Carousel from '../../../components/Carousel.astro';
+
+const slides = [
+  { src: '/images/hudson-river/001.jpg', caption: 'Heading south on the Hudson — sun low over the Jersey shore' },
+  { src: '/images/hudson-river/002.jpg', caption: 'Manhattan skyline on the horizon from Upper New York Bay' },
+  { src: '/images/hudson-river/003.jpg', caption: 'Late afternoon light on the water — Stratos foredeck' },
+  { src: '/images/hudson-river/004.jpg', caption: 'Storm clouds building over the bay — Statue of Liberty in the distance' },
+  { src: '/images/hudson-river/005.jpg', caption: 'Cockpit view — Liberty and the port cranes off the stern quarter' },
+  { src: '/images/hudson-river/006.jpg', caption: 'Dramatic sky over the Upper Bay — making way south' },
+  { src: '/images/hudson-river/007.jpg', caption: 'Statue of Liberty silhouette — golden hour from the cockpit' },
+  { src: '/images/hudson-river/008.jpg', caption: 'Liberty Island and port cranes — evening light across the bay' },
+  { src: '/images/hudson-river/009.jpg', caption: 'Last light — Statue of Liberty and the harbor at sunset' },
+];
+---
+<Base title="Sailing on the Hudson — Gallery">
+  <a href="/gallery/" class="text-sm text-gray-400 hover:underline mb-4 inline-block">&larr; Gallery</a>
+  <h1 class="text-2xl font-bold mb-2">Sailing on the Hudson</h1>
+  <p class="text-sm text-gray-500 mb-6 max-w-2xl">Sailing from the Hudson River into the Upper New York Bay offers a thrilling contrast: the peaceful, crisp river breeze against your face juxtaposed with awe-inspiring, up-close views of the towering Manhattan skyline, the majestic Statue of Liberty, and bustling maritime history all around you.</p>
+  <Carousel id="hudson" slides={slides} />
+</Base>
