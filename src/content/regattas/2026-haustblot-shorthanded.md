@@ -1,6 +1,6 @@
 ---
 name: "Haustblót Shorthanded Regatta"
-track: "coastal"
+track: "inshore"
 startDate: 2026-09-19
 endDate: 2026-09-19
 host: "Sea Cliff Yacht Club"
