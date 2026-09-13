@@ -1,6 +1,6 @@
 ---
 title: "Cyclops SF 3300 Tuning Guide"
-category: "Other"
+category: "Cyclops Marine"
 file: "/documents/cyclops-sf3300-tuning-guide.pdf"
 fileSize: "162 KB"
 date: 2024-10-18

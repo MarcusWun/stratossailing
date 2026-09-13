@@ -5,7 +5,7 @@ import { getCollection } from 'astro:content';
 const docs = (await getCollection('documents'))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
-const categories = ['B&G', 'Victron', 'Efoy', 'E-Bar', 'Yanmar', 'Other'] as const;
+const categories = ['B&G', 'Cyclops Marine', 'Victron', 'Efoy', 'E-Bar', 'Yanmar', 'Other'] as const;
 const byCategory = Object.fromEntries(
   categories.map(cat => [cat, docs.filter(d => d.data.category === cat)])
 );

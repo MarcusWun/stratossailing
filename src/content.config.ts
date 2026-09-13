@@ -43,7 +43,7 @@ const documents = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/documents' }),
   schema: z.object({
     title: z.string(),
-    category: z.enum(['B&G', 'Victron', 'Efoy', 'E-Bar', 'Yanmar', 'Other']),
+    category: z.enum(['B&G', 'Cyclops Marine', 'Victron', 'Efoy', 'E-Bar', 'Yanmar', 'Other']),
     file: z.string(),
     fileSize: z.string().optional(),
     date: z.coerce.date(),
