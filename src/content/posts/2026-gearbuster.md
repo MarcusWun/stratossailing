@@ -24,7 +24,7 @@ IHYC's race committee had other ideas about cancelling. They started the PHRF Do
 
 We went with the windseeker from the gun. The Sun Fast 3300's white hull is a beautiful thing when the breeze is up. In 3 knots of pressure with the boat flat, it's about as hydrodynamic as a floating bathtub. The windseeker kept us moving through the lulls, which was the most we could ask.
 
-We positioned ourselves mid-Sound — no thermals developing over either shore, wind oscillating with no readable pattern — and treated the width as optionality. J120 *Hound Dog* (PHRF 42) had a rating advantage on us; J109 *Sunny Side* (PHRF 66) was giving us time and would need to stay close to collect it.
+We positioned ourselves mid-Sound — no thermals developing over either shore, wind oscillating with no readable pattern — and treated the width as optionality. J120 *Hound Dog* (PHRF 42) owed us time; J109 *Sunny Side* (PHRF 66) had a rating advantage on us and would need to stay close to collect it.
 
 ## The Return
 
