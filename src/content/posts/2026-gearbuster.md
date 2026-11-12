@@ -12,6 +12,8 @@ heroImage: "../../assets/photos/2026/gearbuster/gearbuster-trophy.jpg"
 draft: false
 ---
 
+![The Gearbuster 2026 — First Place — Stratos](../../assets/photos/2026/gearbuster/gearbuster-trophy.jpg)
+
 When Steve Fisk arrived at Riverside Yacht Club on race morning, I greeted him with the encouraging news that there was a 50% chance the race would be cancelled. This is, admittedly, an unusual way to build a crew's enthusiasm for the last regatta of the season. Steve took it well.
 
 The forecast called for almost no wind. I had brought both the light-air jib and the windseeker — the latter being our fully battened foresail that holds its shape in conditions too light for a normal jib to care about. The windseeker had made its season debut at the Ida Lewis in August, where rigging it in the middle of the night, parked, was an experience we had no interest in repeating. This time it was ready before we left the dock.
